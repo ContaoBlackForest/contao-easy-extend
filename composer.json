@@ -1,0 +1,40 @@
+{
+    "name": "contaoblackforest/contao-easy-extend",
+    "description": "The is project to easy extends Contao modules",
+    "type": "contao-module",
+    "license": "LGPL-3.0+",
+    "authors": [
+        {
+            "name": "Sven Baumann",
+            "email": "baumann.sv@gmail.com",
+            "homepage": "https://github.com/contaoblackforest",
+            "role": "Developer"
+        },
+        {
+            "name": "Dominik Tomasi",
+            "email": "dominik.tomasi@gmail.com",
+            "homepage": "https://github.com/contaoblackforest",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "contao/core": ">=3.2-dev,<4-dev",
+        "contao-community-alliance/composer-plugin": "~2.0",
+        "contao-community-alliance/dependency-container": "~1.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Contao\\EasyExtend\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "contao": {
+            "sources": {
+                "contao": "system/modules/easy-extend"
+            }
+        }
+    }
+}
