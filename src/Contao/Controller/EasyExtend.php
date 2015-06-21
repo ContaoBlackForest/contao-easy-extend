@@ -160,11 +160,18 @@ class EasyExtend
         }
     }
 
+    private function generateModule($parameters, $bridgeNamespace, $module)
+    {
+        if (!$this->fs->exists($this->getContaoRoot() . $parameters['path'])) {
+        }
+    }
+
     private function parseBridge($parameters, $module)
     {
         $bridgeNamespace = $this->generateBridgeNamespace($parameters);
         $this->makeBridgeDirectoryForNamespace($bridgeNamespace);
         $this->generateBridgeModule($bridgeNamespace, $module);
+        $this->generateModule($parameters, $bridgeNamespace, $module);
     }
 
     public function init()
