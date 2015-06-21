@@ -23,11 +23,8 @@ class Controller
 
     public function init()
     {
+        if (array_key_exists('TL_EXTEND', $GLOBALS)) {
 
-    }
-
-    public function add($parameter)
-    {
-        array_push($this->parameters, $parameter);
+        }
     }
 }
