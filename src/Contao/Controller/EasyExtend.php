@@ -6,7 +6,7 @@
  * Copyright (C) ContaoBlackForest
  *
  * @package   contaoblackforest/contao-easy-extend
- * @file      Controller.php
+ * @file      EasyExtend.php
  * @author    Sven Baumann <baumann.sv@gmail.com>
  * @author    Dominik Tomasi <dominik.tomasi@gmail.com>
  * @license   GNU/LGPL
@@ -14,17 +14,17 @@
  */
 
 
-namespace Contao\EasyExtend;
+namespace Contao\Controller;
 
 
-class Controller
+class EasyExtend
 {
     protected $parameters = array();
 
     public function init()
     {
         if (array_key_exists('TL_EXTEND', $GLOBALS)) {
-
+            echo "";
         }
     }
 }

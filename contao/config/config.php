@@ -14,5 +14,5 @@
  */
 
 $GLOBALS['TL_HOOKS']['initializeSystem']                = array_reverse($GLOBALS['TL_HOOKS']['initializeSystem']);
-$GLOBALS['TL_HOOKS']['initializeSystem']['easy-extend'] = array('Contao\EasyExtend\Controller', 'init');
+$GLOBALS['TL_HOOKS']['initializeSystem']['easy-extend'] = array('Contao\Controller\EasyExtend', 'init');
 $GLOBALS['TL_HOOKS']['initializeSystem']                = array_reverse($GLOBALS['TL_HOOKS']['initializeSystem']);

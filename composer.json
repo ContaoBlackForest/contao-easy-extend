@@ -25,7 +25,7 @@
     },
     "autoload": {
         "psr-0": {
-            "Contao\\EasyExtend\\": "src/"
+            "Contao\\Controller": "src/"
         }
     },
     "minimum-stability": "dev",
