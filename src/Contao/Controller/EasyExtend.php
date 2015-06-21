@@ -160,9 +160,39 @@ class EasyExtend
         }
     }
 
+    private function compileModule($parameters, $bridgeNamespace, $module)
+    {
+        $file = new File($parameters['path'], true);
+        $file->truncate();
+
+        $file->putContent(
+            $parameters['path'],
+            '<?php ' . "\n" .
+            "\n" .
+            '/**' . "\n" .
+            ' * DESCRIPTION' . "\n" .
+            ' *' . "\n" .
+            ' * Copyright (C) ORGANISE' . "\n" .
+            ' *' . "\n" .
+            ' * @package   PACKAGE NAME' . "\n" .
+            ' * @file      ' . $module . '.php' . "\n" .
+            ' * @author    AUTHOR' . "\n" .
+            ' * @license   GNU/LGPL' . "\n" .
+            ' * @copyright Copyright ' . Date::parse('Y', time()) . ' ORGANISE' . "\n" .
+            ' */' . "\n" .
+            "\n" .
+            "\n" .
+            'namespace ' . $bridgeNamespace . ';' . "\n" .
+            "\n" .
+            'class ' . $module . ' extends \\' . $bridgeNamespace . 'Bridge\\' . $module . "\n" .
+            '{' . "\n" . '}'
+        );
+    }
+
     private function generateModule($parameters, $bridgeNamespace, $module)
     {
         if (!$this->fs->exists($this->getContaoRoot() . $parameters['path'])) {
+            $this->compileModule($parameters, $bridgeNamespace, $module);
         }
     }
 
