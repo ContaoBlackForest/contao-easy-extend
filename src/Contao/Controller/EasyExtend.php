@@ -17,6 +17,7 @@
 namespace Contao\Controller;
 
 
+use Contao\String;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
@@ -73,8 +74,26 @@ class EasyExtend
         }
     }
 
-    private function parseBridge($parameters, $module) {
-        
+    private function generateBridgeNamespace($parameters)
+    {
+        return $parameters['namespace'] .
+               str_replace(
+                   ' ',
+                   '',
+                   ucwords(
+                       str_replace(
+                           array('-', '_'),
+                           array(' ', ' '),
+                           explode('/', $parameters['path'])[2]
+                       )
+                   )
+               ) .
+               'Bridge';
+    }
+
+    private function parseBridge($parameters, $module)
+    {
+        $bridgeNamespace = $this->generateBridgeNamespace($parameters);
     }
 
     public function init()
