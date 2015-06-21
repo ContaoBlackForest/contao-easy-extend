@@ -17,6 +17,7 @@
 namespace Contao\Controller;
 
 
+use Contao\ClassLoader;
 use Contao\String;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -102,10 +103,31 @@ class EasyExtend
         }
     }
 
+    private function getClassFromModule($class)
+    {
+        $namespaces = ClassLoader::getNamespaces();
+        $classes    = ClassLoader::getClasses();
+
+        foreach ($namespaces as $namespace) {
+            if (isset($classes[$namespace . '\\' . $class])) {
+                return $namespace . '\\' . $class;
+            }
+        }
+
+        return null;
+    }
+
+    private function compileBridgeModule($namespace, $module, $path)
+    {
+        $extend = $this->getClassFromModule($module);
+        
+    }
+
     private function generateBridgeModule($namespace, $module)
     {
         $path = $this->cacheDir . '/' . $namespace . '/' . $module . '.php';
         if (!$this->fs->exists($path)) {
+            $this->compileBridgeModule($namespace, $module, $path);
         }
     }
 
