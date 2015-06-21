@@ -195,12 +195,26 @@ class EasyExtend
         }
     }
 
+    private function autoload($parameters, $bridgeNamespace, $module)
+    {
+        ClassLoader::addNamespace($bridgeNamespace);
+
+        ClassLoader::addClasses(
+            array(
+                $bridgeNamespace . '\\' . $module       => $parameters['path'],
+                $bridgeNamespace . 'Bridge\\' . $module =>
+                    $this->cacheDir . '/' . $bridgeNamespace . 'Bridge/' . $module . '.php'
+            )
+        );
+    }
+
     private function parseBridge($parameters, $module)
     {
         $bridgeNamespace = $this->generateBridgeNamespace($parameters);
         $this->makeBridgeDirectoryForNamespace($bridgeNamespace);
         $this->generateBridgeModule($bridgeNamespace, $module);
         $this->generateModule($parameters, $bridgeNamespace, $module);
+        $this->autoload($parameters, $bridgeNamespace, $module);
     }
 
     public function init()
