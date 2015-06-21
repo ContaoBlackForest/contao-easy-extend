@@ -21,7 +21,8 @@
         "php": ">=5.4",
         "contao/core": ">=3.2-dev,<4-dev",
         "contao-community-alliance/composer-plugin": "~2.0",
-        "contao-community-alliance/dependency-container": "~1.0"
+        "contao-community-alliance/dependency-container": "~1.0",
+        "symfony/filesystem": "~2.0"
     },
     "autoload": {
         "psr-0": {
