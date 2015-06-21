@@ -45,8 +45,7 @@ class EasyExtend
 
     private function setCacheDir()
     {
-        $contaoRoot  = $this->getContaoRoot();
-        $contaoCache = $contaoRoot . $this->getCacheDir();
+        $contaoCache = $this->getCacheDir();
 
         if (!$this->fs->exists($contaoCache . '/bridges')) {
             try {
@@ -96,9 +95,10 @@ class EasyExtend
 
     private function makeBridgeDirectoryForNamespace($namespace)
     {
-        if (!$this->fs->exists($this->cacheDir . '/' . $namespace)) {
+        $directory = $this->getContaoRoot() . $this->cacheDir . '/' . $namespace;
+        if (!$this->fs->exists($directory)) {
             try {
-                $this->fs->mkdir($this->cacheDir . '/' . $namespace);
+                $this->fs->mkdir($directory);
             } catch (IOExceptionInterface $e) {
                 echo "An error occurred while creating your directory at " . $e->getPath();
             }
@@ -155,7 +155,7 @@ class EasyExtend
     private function generateBridgeModule($namespace, $module)
     {
         $path = $this->cacheDir . '/' . $namespace . '/' . $module . '.php';
-        if (!$this->fs->exists($path)) {
+        if (!$this->fs->exists($this->getContaoRoot() . $path)) {
             $this->compileBridgeModule($namespace, $module, $path);
         }
     }
