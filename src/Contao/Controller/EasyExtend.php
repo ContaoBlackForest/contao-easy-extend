@@ -91,9 +91,20 @@ class EasyExtend
                'Bridge';
     }
 
+    private function makeBridgeDirectoryForNamespace($namespace) {
+        if (!$this->fs->exists($this->cacheDir . '/' . $namespace)) {
+            try {
+                $this->fs->mkdir($this->cacheDir . '/' . $namespace);
+            } catch (IOExceptionInterface $e) {
+                echo "An error occurred while creating your directory at " . $e->getPath();
+            }
+        }
+    }
+
     private function parseBridge($parameters, $module)
     {
         $bridgeNamespace = $this->generateBridgeNamespace($parameters);
+        $this->makeBridgeDirectoryForNamespace($bridgeNamespace);
     }
 
     public function init()
