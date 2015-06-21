@@ -60,11 +60,24 @@ class EasyExtend
         $this->fs = new Filesystem();
     }
 
+    private function parseBridges()
+    {
+        foreach ($GLOBALS['TL_EXTEND'] as $module => $extends) {
+            if (is_array($extends) && !empty($extends)) {
+                foreach ($extends as $extend) {
+                    if (is_array($extend) && !empty($extend)) {
+                    }
+                }
+            }
+        }
+    }
+
     public function init()
     {
         if (array_key_exists('TL_EXTEND', $GLOBALS)) {
             $this->loadFilesystem();
             $this->setCacheDir();
+            $this->parseBridges();
         }
     }
 }
