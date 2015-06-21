@@ -18,6 +18,8 @@ namespace Contao\Controller;
 
 
 use Contao\ClassLoader;
+use Contao\Date;
+use Contao\File;
 use Contao\String;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
@@ -119,8 +121,35 @@ class EasyExtend
 
     private function compileBridgeModule($namespace, $module, $path)
     {
-        $extend = $this->getClassFromModule($module);
-        
+        $extends = $this->getClassFromModule($module);
+
+        $file = new File($path, true);
+        $file->truncate();
+
+        $file->putContent(
+            $path,
+            '<?php ' . "\n" .
+            "\n" .
+            '/**' . "\n" .
+            ' * This class was generate from contao-easy-extend' . "\n" .
+            ' *' . "\n" .
+            ' * Copyright (C) ContaoBlackForest' . "\n" .
+            ' *' . "\n" .
+            ' * @package   contaoblackforest/contao-easy-extend' . "\n" .
+            ' * @file      ' . $module . '.php' . "\n" .
+            ' * @author    Sven Baumann <baumann.sv@gmail.com>' . "\n" .
+            ' * @author    Dominik Tomasi <dominik.tomasi@gmail.com>' . "\n" .
+            ' * @license   GNU/LGPL' . "\n" .
+            ' * @copyright Copyright ' . Date::parse('Y', time()) . ' ContaoBlackForest' . "\n" .
+            ' */' . "\n" .
+            "\n" .
+            "\n" .
+            'namespace ' . $namespace . ';' . "\n" .
+            "\n" .
+            'class ' . $module . ' extends \\' . $extends . "\n" .
+            '{' . "\n" . '}'
+        );
+
     }
 
     private function generateBridgeModule($namespace, $module)
