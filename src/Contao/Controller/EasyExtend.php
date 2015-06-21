@@ -91,7 +91,8 @@ class EasyExtend
                'Bridge';
     }
 
-    private function makeBridgeDirectoryForNamespace($namespace) {
+    private function makeBridgeDirectoryForNamespace($namespace)
+    {
         if (!$this->fs->exists($this->cacheDir . '/' . $namespace)) {
             try {
                 $this->fs->mkdir($this->cacheDir . '/' . $namespace);
@@ -101,10 +102,18 @@ class EasyExtend
         }
     }
 
+    private function generateBridgeModule($namespace, $module)
+    {
+        $path = $this->cacheDir . '/' . $namespace . '/' . $module . '.php';
+        if (!$this->fs->exists($path)) {
+        }
+    }
+
     private function parseBridge($parameters, $module)
     {
         $bridgeNamespace = $this->generateBridgeNamespace($parameters);
         $this->makeBridgeDirectoryForNamespace($bridgeNamespace);
+        $this->generateBridgeModule($bridgeNamespace, $module);
     }
 
     public function init()
