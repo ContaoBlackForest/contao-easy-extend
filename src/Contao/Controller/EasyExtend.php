@@ -66,10 +66,15 @@ class EasyExtend
             if (is_array($extends) && !empty($extends)) {
                 foreach ($extends as $extend) {
                     if (is_array($extend) && !empty($extend)) {
+                        $this->parseBridge($extend, $module);
                     }
                 }
             }
         }
+    }
+
+    private function parseBridge($parameters, $module) {
+        
     }
 
     public function init()
