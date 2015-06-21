@@ -17,6 +17,7 @@
 namespace Contao\Controller;
 
 
+use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
 class EasyExtend
@@ -44,7 +45,11 @@ class EasyExtend
         $contaoCache = $contaoRoot . $this->getCacheDir();
 
         if (!$this->fs->exists($contaoCache . '/bridges')) {
-            $this->fs->mkdir($contaoCache . '/bridges');
+            try {
+                $this->fs->mkdir($contaoCache . '/bridges');
+            } catch (IOExceptionInterface $e) {
+                echo "An error occurred while creating your directory at " . $e->getPath();
+            }
         }
 
         $this->cacheDir = $contaoCache . '/bridges';
