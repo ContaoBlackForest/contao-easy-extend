@@ -17,14 +17,49 @@
 namespace Contao\Controller;
 
 
+use Symfony\Component\Filesystem\Filesystem;
+
 class EasyExtend
 {
     protected $parameters = array();
 
+    protected $cacheDir;
+
+    /** @var  $fs Filesystem */
+    protected $fs;
+
+    private function getContaoRoot()
+    {
+        return TL_ROOT;
+    }
+
+    private function getCacheDir()
+    {
+        return '/system/cache';
+    }
+
+    private function setCacheDir()
+    {
+        $contaoRoot  = $this->getContaoRoot();
+        $contaoCache = $contaoRoot . $this->getCacheDir();
+
+        if (!$this->fs->exists($contaoCache . '/bridges')) {
+            $this->fs->mkdir($contaoCache . '/bridges');
+        }
+
+        $this->cacheDir = $contaoCache . '/bridges';
+    }
+
+    private function loadFilesystem()
+    {
+        $this->fs = new Filesystem();
+    }
+
     public function init()
     {
         if (array_key_exists('TL_EXTEND', $GLOBALS)) {
-            echo "";
+            $this->loadFilesystem();
+            $this->setCacheDir();
         }
     }
 }
