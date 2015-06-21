@@ -89,13 +89,12 @@ class EasyExtend
                            explode('/', $parameters['path'])[2]
                        )
                    )
-               ) .
-               'Bridge';
+               );
     }
 
     private function makeBridgeDirectoryForNamespace($namespace)
     {
-        $directory = $this->getContaoRoot() . $this->cacheDir . '/' . $namespace;
+        $directory = $this->getContaoRoot() . '/' . $this->cacheDir . '/' . $namespace . 'Bridge';
         if (!$this->fs->exists($directory)) {
             try {
                 $this->fs->mkdir($directory);
@@ -144,7 +143,7 @@ class EasyExtend
             ' */' . "\n" .
             "\n" .
             "\n" .
-            'namespace ' . $namespace . ';' . "\n" .
+            'namespace ' . $namespace . 'Bridge;' . "\n" .
             "\n" .
             'class ' . $module . ' extends \\' . $extends . "\n" .
             '{' . "\n" . '}'
@@ -154,8 +153,8 @@ class EasyExtend
 
     private function generateBridgeModule($namespace, $module)
     {
-        $path = $this->cacheDir . '/' . $namespace . '/' . $module . '.php';
-        if (!$this->fs->exists($this->getContaoRoot() . $path)) {
+        $path = $this->cacheDir . '/' . $namespace . 'Bridge/' . $module . '.php';
+        if (!$this->fs->exists($this->getContaoRoot() . '/' . $path)) {
             $this->compileBridgeModule($namespace, $module, $path);
         }
     }
@@ -191,7 +190,7 @@ class EasyExtend
 
     private function generateModule($parameters, $bridgeNamespace, $module)
     {
-        if (!$this->fs->exists($this->getContaoRoot() . $parameters['path'])) {
+        if (!$this->fs->exists($this->getContaoRoot() . '/' . $parameters['path'])) {
             $this->compileModule($parameters, $bridgeNamespace, $module);
         }
     }
