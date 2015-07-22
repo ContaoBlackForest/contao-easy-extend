@@ -40,22 +40,22 @@ class EasyExtend
 
     private function getCacheDir()
     {
-        return '/system/cache';
+        return 'system/cache';
     }
 
     private function setCacheDir()
     {
-        $contaoCache = $this->getCacheDir();
+        $directory = $this->getCacheDir() . '/bridges';
 
-        if (!$this->fs->exists($contaoCache . '/bridges')) {
+        if (!$this->fs->exists($this->getContaoRoot() . $directory)) {
             try {
-                $this->fs->mkdir($contaoCache . '/bridges');
+                $this->fs->mkdir($this->getContaoRoot() . $directory);
             } catch (IOExceptionInterface $e) {
                 echo "An error occurred while creating your directory at " . $e->getPath();
             }
         }
 
-        $this->cacheDir = $contaoCache . '/bridges';
+        $this->cacheDir = $directory;
     }
 
     private function loadFilesystem()
@@ -107,7 +107,7 @@ class EasyExtend
     private function getClassFromModule($class)
     {
         $namespaces = ClassLoader::getNamespaces();
-        $classes    = ClassLoader::getClasses();
+        $classes    = array_reverse(ClassLoader::getClasses());
 
         foreach ($namespaces as $namespace) {
             if (isset($classes[$namespace . '\\' . $class])) {
@@ -118,7 +118,7 @@ class EasyExtend
         return null;
     }
 
-    private function compileBridgeModule($namespace, $module, $path)
+    private function compileBridgeModule($namespace, $module, $path, $parameters)
     {
         $extends = $this->getClassFromModule($module);
 
@@ -148,14 +148,13 @@ class EasyExtend
             'class ' . $module . ' extends \\' . $extends . "\n" .
             '{' . "\n" . '}'
         );
-
     }
 
-    private function generateBridgeModule($namespace, $module)
+    private function generateBridgeModule($namespace, $module, $parameters)
     {
         $path = $this->cacheDir . '/' . $namespace . 'Bridge/' . $module . '.php';
         if (!$this->fs->exists($this->getContaoRoot() . '/' . $path)) {
-            $this->compileBridgeModule($namespace, $module, $path);
+            $this->compileBridgeModule($namespace, $module, $path, $parameters);
         }
     }
 
@@ -212,7 +211,7 @@ class EasyExtend
     {
         $bridgeNamespace = $this->generateBridgeNamespace($parameters);
         $this->makeBridgeDirectoryForNamespace($bridgeNamespace);
-        $this->generateBridgeModule($bridgeNamespace, $module);
+        $this->generateBridgeModule($bridgeNamespace, $module, $parameters);
         $this->generateModule($parameters, $bridgeNamespace, $module);
         $this->autoload($parameters, $bridgeNamespace, $module);
     }
