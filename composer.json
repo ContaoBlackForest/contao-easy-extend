@@ -30,8 +30,6 @@
             "Contao\\Controller": "src/"
         }
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true,
     "extra": {
         "contao": {
             "sources": {
