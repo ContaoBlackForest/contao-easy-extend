@@ -20,7 +20,6 @@ namespace Contao\Controller;
 use Contao\ClassLoader;
 use Contao\Date;
 use Contao\File;
-use Contao\String;
 use Symfony\Component\Filesystem\Exception\IOExceptionInterface;
 use Symfony\Component\Filesystem\Filesystem;
 
