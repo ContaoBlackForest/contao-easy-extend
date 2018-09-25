@@ -3,7 +3,7 @@
     "description": "The is project to easy extends Contao modules",
     "keywords": ["contao", "module", "extend", "helper", "develop"],
     "type": "contao-module",
-    "license": "LGPL-3.0+",
+    "license": "LGPL-3.0-or-later",
     "authors": [
         {
             "name": "Sven Baumann",

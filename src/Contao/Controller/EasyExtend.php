@@ -125,6 +125,13 @@ class EasyExtend
         $file = new File($path, true);
         $file->truncate();
 
+        $class = '';
+        if (isset($parameters['isAbstract']) && $parameters['isAbstract']) {
+            $class .= 'abstract';
+        }
+
+        $class .= $class ? ' class ' : 'class ';
+
         $file->putContent(
             $path,
             '<?php ' . "\n" .
@@ -145,7 +152,7 @@ class EasyExtend
             "\n" .
             'namespace ' . $namespace . 'Bridge;' . "\n" .
             "\n" .
-            'class ' . $module . ' extends \\' . $extends . "\n" .
+            $class . $module . ' extends \\' . $extends . "\n" .
             '{' . "\n" . '}'
         );
     }
