@@ -46,9 +46,9 @@ class EasyExtend
     {
         $directory = $this->getCacheDir() . '/bridges';
 
-        if (!$this->fs->exists($this->getContaoRoot() . $directory)) {
+        if (!$this->fs->exists($this->getContaoRoot() . '/' . $directory)) {
             try {
-                $this->fs->mkdir($this->getContaoRoot() . $directory);
+                $this->fs->mkdir($this->getContaoRoot() . '/' . $directory);
             } catch (IOExceptionInterface $e) {
                 echo "An error occurred while creating your directory at " . $e->getPath();
             }
